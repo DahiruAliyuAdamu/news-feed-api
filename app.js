@@ -13,7 +13,7 @@ const app = express()
 dotenv.config()
 
 const PORT = process.env.PORT || 7000
-const MONGOURL = process.env.MONGO_URI
+const MONGOURI = process.env.MONGO_URI
 
 app.use(express.json()) // for using json data
 app.use(express.urlencoded({ extended: true })) // for using x-www-form-urlencoded
