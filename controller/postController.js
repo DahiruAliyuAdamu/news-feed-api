@@ -1,5 +1,6 @@
 const Post = require('../models/Post')
 const Likes = require('../models/Likes')
+const Comment = require('../models/Comment')
 const { json } = require('express')
 
 const getAllPost = async (req, res) => {
@@ -9,6 +10,7 @@ const getAllPost = async (req, res) => {
 
         const postsWithLikes = await Promise.all(posts.map(async post => {
             const likeCount = await Likes.countDocuments({ postId: post._id })
+            const commentCount = await Comment.countDocuments({ postId: post._id })
 
             let isLiked = false
             if (userId) {
@@ -19,7 +21,8 @@ const getAllPost = async (req, res) => {
             return {
                 ...post.toObject(),
                 likeCount,
-                isLiked
+                isLiked,
+                commentCount 
             }
         }))
 
